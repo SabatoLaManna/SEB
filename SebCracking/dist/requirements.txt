@@ -1,0 +1,6 @@
+requests
+watchdog
+mss
+Pillow
+keyboard
+pynput
