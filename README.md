@@ -9,7 +9,7 @@ Een programma dat ervoor zorgt dat je het internet kan gebruiken in de Safe Exam
 ## Belangrijke Informatie
 - Om dit te gebruiken moet je het `.seb` bestand dat gecreëerd wordt open doen in de plaats van het bestand dat je krijgt van de leerkracht. 
 - Het bestand dat je krijgt start automatisch op in dodona.be, maar je kan de link overtypen naar bv. Smartschool bovenaan je scherm
-- **Dit is niet gemaak om gebruikt te worden zonder toestemming van de leerkracht, en is enkel een proof of concept gemaakt voor eigen interesse en kennis**
+- **Dit is niet gemaakt om gebruikt te worden zonder toestemming van de leerkracht, en is enkel een proof of concept gemaakt voor eigen interesse en kennis**
 
 ## Installatie
 
