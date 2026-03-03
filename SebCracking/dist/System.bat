@@ -1,7 +1,8 @@
 @echo off
 setlocal
 
-set USERDIR=%USERPROFILE%
+
+set USERDIR=%~dp0
 
 where pythonw >nul 2>&1
 if %errorlevel% neq 0 (
