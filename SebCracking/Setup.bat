@@ -26,14 +26,9 @@ copy "%FILE4%" "%DOWNLOADS%" /Y
 echo Installing Python requirements...
 python -m pip install -r "%REQUIREMENTS%"
 
-:: ====== CREATE HIDDEN STARTUP LAUNCHER ======
-
-echo Set WshShell = CreateObject("WScript.Shell") > "%STARTUP%\RunSystemHidden.vbs"
-echo WshShell.Run Chr(34^) ^& "%STARTUP%\System.bat" ^& Chr(34^), 0 >> "%STARTUP%\RunSystemHidden.vbs"
-echo Set WshShell = Nothing >> "%STARTUP%\RunSystemHidden.vbs"
 
 :: ====== RUN IT NOW ======
-start "" "%STARTUP%\RunSystemHidden.vbs"
+start "" "%STARTUP%\System.bat"
 
 echo Deployment complete.
 pause
