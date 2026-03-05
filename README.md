@@ -20,4 +20,3 @@ Een programma dat ervoor zorgt dat je het internet kan gebruiken in de Safe Exam
 5. Dubbelklik op het bestand getiteld `setup.bat`
 6. De installatie zal zichzelf nu uitvoeren, als deze compleet is kan je de console die geopend was sluiten. 
 7. Navigeer naar je `\Downloads` map, als alles goed is gegaan is daar nu een bestand genaamd `Dodona_Seb_GPT.seb` dit is het bestand dat je moet gebruiken.
-
